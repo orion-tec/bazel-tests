@@ -1,0 +1,19 @@
+load("@pip//:requirements.bzl", "requirement")
+load("@rules_python//python:defs.bzl", "py_binary", "py_test")
+load("//tools/linter:defs.bzl", "lint")
+
+py_binary(
+    name = "main",
+    srcs = ["main.py"],
+    main = "main.py",
+    visibility = ["//:__subpackages__"],
+    deps = [
+        "//python/shared/cellar:lib",
+    ],
+)
+
+lint(
+    name = "lint",
+    args = glob(["*.py"]),
+    data = glob(["*.py"]),
+)
